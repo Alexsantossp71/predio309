@@ -20,14 +20,17 @@ python manage.py runserver
 # acesse http://localhost:8000
 ```
 
-## ⚠️ Atenção (segurança)
+## 🔐 Segurança
 
-Este repositório foi criado em ambiente de estudo e contém a `SECRET_KEY` exposta e `DEBUG=True` no arquivo `settings.py`. **Ao reutilizar este projeto:**
+Este repositório já teve uma `SECRET_KEY` exposta em versões antigas do `settings.py`. A chave foi **rotacionada** e o projeto agora lê toda a configuração sensível de **variáveis de ambiente**:
 
-1. Gere uma nova SECRET_KEY
-2. Use variáveis de ambiente (`.env`) — não commite segredos
-3. Configure `DEBUG=False` e `ALLOWED_HOSTS` em produção
-4. Adicione `db.sqlite3` e `.env` ao `.gitignore`
+| Variável | Descrição |
+|---|---|
+| `DJANGO_SECRET_KEY` | Gere a sua com `python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"` |
+| `DJANGO_DEBUG` | `True` só em desenvolvimento · `False` em produção |
+| `DJANGO_ALLOWED_HOSTS` | Hosts permitidos, separados por vírgula |
+
+Copie `.env.example` para `.env` e preencha os valores. O banco (`db.sqlite3`) e as configurações de IDE (`.idea/`) ficam fora do versionamento — veja o `.gitignore`.
 
 ## 👤 Autor
 
