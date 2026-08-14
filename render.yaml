@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: predio309
+    runtime: python
+    plan: free
+    region: oregon
+    buildCommand: pip install -r requirements.txt && python predio309/manage.py migrate --noinput && python predio309/manage.py collectstatic --noinput
+    startCommand: gunicorn predio309.wsgi --chdir predio309
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: DJANGO_ALLOWED_HOSTS
+        value: "*"
